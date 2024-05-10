@@ -1,19 +1,10 @@
 ﻿@page "/"
 
-@*<p>Hola, @nombre.ToUpper()</p>*@
-<p>Hola, @cambiarNombreMayusculas(nombre)</p>
-
-<button @onclick=@(() => Console.WriteLine("Me han dado click"))>Button</button>
-
-<button @onclick=@accionClickBotton>ButtonDos</button>
+<div>
+    <h1>Ingresos Index</h1>
+    <ListadoIngresos></ListadoIngresos>
+</div>
 
 @code{
-    string nombre = "Aaron Arenas";
-
-    string cambiarNombreMayusculas(string nombreMinusculas) => nombre.ToUpper();
-
-    void accionClickBotton()
-    {
-        Console.WriteLine("Desde una funcion me han dado clic");
-    }
+    
 }

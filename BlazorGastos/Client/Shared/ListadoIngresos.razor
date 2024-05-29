@@ -2,61 +2,39 @@
     <h1>Componente Listado no ruteable</h1>
 </div>
 
-@if (ingresos is null)
-{
-    <div class="col-12">
-    <img alt="cargando"
-         src="img/loading.gif">
-    </div>
-}
-else if (ingresos.Count == 0)
-{
-    <img alt="Error no se encontraron ingresos"
-         src="img/Error.jpg">
-}
+
 else
 {
+@*    <input type="checkbox" @onchange="@(() => MostrarBoton = !MostrarBoton)"/> Con funciones lambda*@
+    <input type="checkbox" @bind="@(MostrarBoton)" />
+    <span>Mostar Botones</span>
     <div>
         <h1>Ingresos</h1>
-        @foreach (var ingreso in ObtenerListaIngresos())
+        @foreach (var ingreso in ingresos)
         {
-
-            <div>
-                <p>
-                    Descripción :<b>@ingreso.descripcion</b>
-                    @if (DateTime.Today.Subtract(ingreso.fecha).Days <= 15)
-                    {
-                        <span style="color: red">!Nomina Reciente!</span>
-                    }
-                </p>
-                @*Agregar despues en la funcionalidad cuando el ingreso de la semana sea > 5000*@
-                <p>Monto : $ :<b>@ingreso.monto</b> </p>
-                <p>Fecha : :<b>@ingreso.fecha.ToString("d")</b> </p>
-                <p>IdUsuario : :<b>@ingreso.idUsuario</b> </p>
-            </div>
+         <GastoIndividual 
+             Ingreso="ingreso" 
+             MostrarBoton="MostrarBoton"
+            EliminarIngreso="EliminarIngreso"
+         >
+        </GastoIndividual>
         }
     </div>
 }
 
 @code {
 
+    [Parameter]
+    [EditorRequired]
     public List<Ingresos>? ingresos { get; set; }
 
-    protected override async Task OnInitializedAsync()
-    {
-        await Task.Delay(1000);
-        ingresos = ObtenerListaIngresos();
-    }
 
-    List<Ingresos> ObtenerListaIngresos()
+
+    bool MostrarBoton = false;
+
+    private void EliminarIngreso(Ingresos ingreso)
     {
-        return new List<Ingresos>()
-        {
-                new Ingresos { descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 5, 15), idUsuario =1},
-                new Ingresos { descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 5, 22), idUsuario =1},
-                new Ingresos { descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 5, 29), idUsuario =1},
-                new Ingresos { descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 6, 5), idUsuario =1},
-                new Ingresos { descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 6, 12), idUsuario =1}
-        };
+        Console.WriteLine($"Eliminando ingreso {ingreso.descripcion}");
+        ingresos.Remove(ingreso);
     }
 }

@@ -1,0 +1,43 @@
+﻿<div>
+    <h1>Ingresos</h1>
+
+
+        <div>
+            <p>
+                Descripción :<b>@Ingreso.descripcion</b>
+                @if (DateTime.Today.Subtract(Ingreso.fecha).Days <= 15)
+                {
+                    <span style="color: red">!Nomina Reciente!</span>
+                }
+            </p>
+            @*Agregar despues en la funcionalidad cuando el ingreso de la semana sea > 5000*@
+            <p>Monto : $ :<b>@Ingreso.monto</b> </p>
+            <p>Fecha : :<b>@Ingreso.fecha.ToString("d")</b> </p>
+            <p>IdUsuario : :<b>@Ingreso.idUsuario</b> </p>
+            @if (MostrarBoton)
+        {
+            <div>
+                <button @onclick="@(() => EliminarIngreso.InvokeAsync(Ingreso))" class="btn-danger"> Eliminar</button>
+            </div>
+        }
+            
+        </div>
+</div>
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public Ingresos Ingreso { get; set; } = null!;
+
+    [Parameter]
+    public bool MostrarBoton { get; set; } = false;
+
+    [Parameter]
+    public EventCallback<Ingresos> EliminarIngreso { get; set; }
+
+    //void Eliminar()
+    //{
+    //    Console.WriteLine($"Eliminando Texto de los formularios.{Ingreso.descripcion}");
+    //}
+
+}

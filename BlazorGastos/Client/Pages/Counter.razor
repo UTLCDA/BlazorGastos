@@ -8,11 +8,21 @@
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
+<GastoIndividual Ingreso=ObtenerIngreso()></GastoIndividual>
+
 @code {
     private int currentCount = 0;
 
     private void IncrementCount()
     {
         currentCount++;
+    }
+
+    Ingresos ObtenerIngreso()
+    {
+        return new Ingresos()
+        {
+                descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 5, 15), idUsuario =1
+        };
     }
 }

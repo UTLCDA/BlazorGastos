@@ -1,0 +1,52 @@
+﻿@typeparam Titem
+<h3>ListadoGenerico</h3>
+
+@if (Listado is null)
+{
+    @if (Cargando is null)
+    {
+        <div class="col-12">
+            <img alt="cargando"
+                 src="img/loading.gif">
+
+        </div>
+    }
+    else
+    {
+        @Cargando
+    }
+
+}
+else if (Listado.Count == 0)
+{
+    if (NoHayIngresos is null)
+    {
+        <img alt="Error no se encontraron ingresos"
+             src="img/Error.jpg">
+    }
+    else
+    {
+        @NoHayIngresos
+    }
+
+}else
+{
+    foreach (var elementoListado in Listado)
+    {
+        @HayRegistros(elementoListado)
+    }
+}
+
+@code {
+    [Parameter]
+    public RenderFragment Cargando { get; set; } = null!;
+    [Parameter]
+    public RenderFragment NoHayIngresos { get; set; } = null!;
+    
+    [Parameter]
+    public RenderFragment<Titem> HayRegistros { get; set; }
+
+    [Parameter]
+    [EditorRequired]
+    public List<Titem> Listado { get; set; } = null!;
+}

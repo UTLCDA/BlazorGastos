@@ -2,9 +2,36 @@
 
 <div>
     <h1>Ingresos Index</h1>
-    <ListadoIngresos></ListadoIngresos>
+    <ListadoIngresos ingresos="ObtenerListaIngresos()">
+        <Cargando>Cargando el listado de ingresos.</Cargando>
+        <NoHayIngresos> No hay Registros.</NoHayIngresos>
+    </ListadoIngresos>
 </div>
 
+<div>
+    <h2>Ejemplo Input</h2>
+    <EjemploInputParametroArbitrario placeholder="Descripción"></EjemploInputParametroArbitrario>
+</div>
+
+<BindEvento></BindEvento>
+<BindGetSet></BindGetSet>
+<BindAfter></BindAfter>
+
 @code{
-    
+    List<Ingresos> ObtenerListaIngresos()
+    {
+        return new List<Ingresos>()
+        {
+                new Ingresos { descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 5, 15), idUsuario =1},
+                new Ingresos { descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 5, 22), idUsuario =1},
+                new Ingresos { descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 5, 29), idUsuario =1},
+                new Ingresos { descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 6, 5), idUsuario =1},
+                new Ingresos { descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 6, 12), idUsuario =1},
+                new Ingresos { descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 6, 19), idUsuario =1},
+                new Ingresos { descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 6, 26), idUsuario =1},
+                new Ingresos { descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 7, 1), idUsuario =1},
+                new Ingresos { descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 7, 8), idUsuario =1},
+                new Ingresos { descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 7, 15), idUsuario =1}
+        };
+    }
 }

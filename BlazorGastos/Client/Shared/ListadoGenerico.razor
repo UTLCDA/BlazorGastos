@@ -40,11 +40,14 @@ else if (Listado.Count == 0)
 @code {
     [Parameter]
     public RenderFragment Cargando { get; set; } = null!;
-    [Parameter]
+
+    [Parameter] 
     public RenderFragment NoHayIngresos { get; set; } = null!;
-    
+
     [Parameter]
-    public RenderFragment<Titem> HayRegistros { get; set; }
+    public RenderFragment<Titem> HayRegistros { get; set; } = null!;
+
+
 
     [Parameter]
     [EditorRequired]

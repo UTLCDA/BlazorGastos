@@ -1,26 +1,24 @@
-﻿<div>
+﻿@inject IJSRuntime js
+
+<div>
     <h1>Componente Listado no ruteable</h1>
 </div>
 
-
-else
-{
 @*    <input type="checkbox" @onchange="@(() => MostrarBoton = !MostrarBoton)"/> Con funciones lambda*@
     <input type="checkbox" @bind="@(MostrarBoton)" />
     <span>Mostar Botones</span>
     <div>
         <h1>Ingresos</h1>
-        @foreach (var ingreso in ingresos)
-        {
-         <GastoIndividual 
-             Ingreso="ingreso" 
-             MostrarBoton="MostrarBoton"
-            EliminarIngreso="EliminarIngreso"
-         >
-        </GastoIndividual>
-        }
+        <ListadoGenerico Listado="ingresos">
+            <HayRegistros Context="ingresos">
+                 <GastoIndividual 
+                     Ingreso="ingresos" 
+                     MostrarBoton="MostrarBoton"
+                    EliminarIngreso="EliminarIngreso">
+                 </GastoIndividual>
+            </HayRegistros>
+        </ListadoGenerico>
     </div>
-}
 
 @code {
 
@@ -28,13 +26,17 @@ else
     [EditorRequired]
     public List<Ingresos>? ingresos { get; set; }
 
-
-
     bool MostrarBoton = false;
 
-    private void EliminarIngreso(Ingresos ingreso)
+    private async Task EliminarIngreso(Ingresos ingreso)
     {
-        Console.WriteLine($"Eliminando ingreso {ingreso.descripcion}");
-        ingresos.Remove(ingreso);
+        var confirmarEliminacion = await js.InvokeAsync<bool>("confirm",
+                                            $"¿Desea borrar el ingreso {ingreso.descripcion} de la fecha {ingreso.fecha} ?");
+        if (confirmarEliminacion)
+        {
+            Console.WriteLine($"Eliminando ingreso {ingreso.descripcion}");
+            ingresos.Remove(ingreso);
+        }
+        
     }
 }

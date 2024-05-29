@@ -1,28 +1,13 @@
 ﻿@page "/counter"
 
-<PageTitle>Counter</PageTitle>
+
+<PageTitle>Contador</PageTitle>
 
 <h1>Counter</h1>
 
 <p role="status">Current count: @currentCount</p>
+<p role="status">Current Singleton: @variableSingleton.Valor</p>
+<p role="status">Current Transient: @variableTransient.Valor</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
-<GastoIndividual Ingreso=ObtenerIngreso()></GastoIndividual>
-
-@code {
-    private int currentCount = 0;
-
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
-
-    Ingresos ObtenerIngreso()
-    {
-        return new Ingresos()
-        {
-                descripcion = "Nomina", monto = 3795.00, fecha = new DateTime(2024, 5, 15), idUsuario =1
-        };
-    }
-}
